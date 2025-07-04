@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mouse-Based SVG Animation</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    svg {
+      display: block;
+      width: 60vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <path id="path1" fill="black" d="M0,0l379.362,0l0,412.553l700.638,0l0,-250.495l-1080,0l0,-162.058Z"/>
+  <path id="path2" fill="black" d="M0,1080l379.362,0l0,-332.025l700.638,0l0,201.6l-1080,0l0,130.425Z"/>
+</svg>
+
+<script>
+const path1 = document.getElementById('path1');
+const path2 = document.getElementById('path2');
+
+const base = {
+  topCurve: { x: 700.638, y: 412.553 },
+  bottomCurve: { x: 700.638, y: 747.975 }
+};
+
+document.addEventListener('mousemove', (e) => {
+  const { innerWidth, innerHeight } = window;
+  const mouseX = e.clientX / innerWidth;
+  const mouseY = e.clientY / innerHeight;
+
+  // Map mouseX/mouseY to small coordinate changes
+  const deltaX = (mouseX - 0.5) * 500; // ±50
+  const deltaY = (mouseY - 0.5) * 500;
+
+  // Animate path1 (top)
+  const newTopD = `
+    M0,0
+    l379.362,0
+    l0,${412.553 + deltaY}
+    l${base.topCurve.x + deltaX},0
+    l0,-${250.495 + deltaY}
+    l-1080,0
+    l0,-162.058Z`;
+
+  // Animate path2 (bottom)
+  const newBottomD = `
+    M0,1080
+    l379.362,0
+    l0,-${332.025 + deltaY}
+    l${base.bottomCurve.x + deltaX},0
+    l0,${201.6 - deltaY}
+    l-1080,0
+    l0,130.425Z`;
+
+  path1.setAttribute('d', newTopD.trim());
+  path2.setAttribute('d', newBottomD.trim());
+});
+</script>
+</body>
+</html>
