@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Micro Interaction Demo</title>
+
+<!-- Preact -->
+<script src="https://unpkg.com/preact@10.19.2/dist/preact.umd.js"></script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        line-height: 1.5;
+    }
+
+    .hero {
+        width: 100%;
+        height: 50vh;
+        background-image: url('https://source.unsplash.com/1600x900/?nature,landscape');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .columns {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 2rem;
+        gap: 1.5rem;
+        justify-content: center;
+    }
+
+    .col {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        flex: 1 1 250px;
+        max-width: 320px;
+    }
+
+    button {
+        margin-top: 1rem;
+        background: #0070f3;
+        color: white;
+        padding: 0.6rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.2s ease;
+        position: relative;
+        overflow: visible;
+    }
+
+    button:hover {
+        background: #0059c9;
+    }
+
+    /* Confetti container */
+    .confetti {
+        position: absolute;
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+    }
+</style>
+</head>
+
+<body>
+<div id="app"></div>
+
+<script type="module">
+    const { h, render } = preact;
+
+    function confettiBurst(button) {
+        const numPieces = 20;
+        const colors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93"];
+
+        for (let i = 0; i < numPieces; i++) {
+            const piece = document.createElement("div");
+            piece.className = "confetti";
+            piece.style.width = "8px";
+            piece.style.height = "8px";
+            piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+            piece.style.position = "absolute";
+            piece.style.borderRadius = "2px";
+
+            button.appendChild(piece);
+
+            gsap.fromTo(piece,
+                { x: 0, y: 0, opacity: 1, rotate: 0 },
+                {
+                    x: (Math.random() - 0.5) * 150,
+                    y: (Math.random() - 1.2) * 200,
+                    opacity: 0,
+                    rotate: Math.random() * 360,
+                    duration: 1.2,
+                    ease: "power2.out",
+                    onComplete: () => piece.remove()
+                }
+            );
+        }
+    }
+
+    const Column = ({ title }) =>
+        h("div", { class: "col" },
+            h("p", null, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum interdum orci vel libero dignissim feugiat."),
+            h("button", {
+                onClick: (e) => confettiBurst(e.target)
+            }, "Celebrate 🎉")
+        );
+
+    function App() {
+        return h("div", null,
+            h("div", { class: "hero" }, "Responsive Hero Section"),
+            h("div", { class: "columns" },
+                h(Column, { title: "One" }),
+                h(Column, { title: "Two" }),
+                h(Column, { title: "Three" }),
+            )
+        );
+    }
+
+    render(h(App), document.getElementById("app"));
+</script>
+</body>
+</html>
