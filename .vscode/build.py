@@ -13,7 +13,7 @@ class IndexBuilder:
 
     @property
     def index_files(self) -> list[Path]:
-        return [file for file in self.root.rglob("index.html") if file.parent != self.root]
+        return [file for file in self.root.rglob("*.htm*") if file.parent != self.root]
 
     @property
     def rel_index_files_str(self) -> list[str]:
