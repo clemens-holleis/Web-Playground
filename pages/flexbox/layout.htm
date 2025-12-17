@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Row Layout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    /* Row with multiple columns */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .col {
+      flex: 1;
+      min-width: 250px; /* Prevents columns from shrinking too much */
+      padding: 20px;
+      background-color: #f0f0f0;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    /* Single column row */
+    .single {
+      padding: 20px;
+      background-color: #d0e8ff;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Row with three columns -->
+    <div class="row">
+      <div class="col">Column 1</div>
+      <div class="col">Column 2</div>
+      <div class="col">Column 3</div>
+    </div>
+
+    <!-- Single column row -->
+    <div class="single">
+      This is a single column row.
+    </div>
+  </div>
+</body>
+</html>

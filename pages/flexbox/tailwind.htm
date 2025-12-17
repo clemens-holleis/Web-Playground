@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Responsive Tailwind Rows + Containers</title>
+
+    <!-- Tailwind CDN for quick prototyping. Remove and use a build step for production. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Example: tweak the Tailwind container to center and add padding at breakpoints -->
+    <script>
+      tailwind.config = {
+        theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: '1rem',
+              sm: '1.5rem',
+              lg: '2rem',
+              xl: '4rem',
+            },
+          },
+        },
+      }
+    </script>
+
+    <style>
+      /* small helper to visualize the rows while developing */
+      .row-outline { border: 1px dashed rgba(100,116,139,0.15); }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800 leading-relaxed">
+
+    <!-- NAVBAR (full-width) -->
+    <header class="w-full bg-white shadow-sm sticky top-0 z-40">
+      <div class="container flex items-center justify-between py-4">
+        <a href="#" class="text-xl font-semibold">MySite</a>
+        <nav class="hidden md:flex gap-6 items-center text-sm">
+          <a class="hover:text-sky-600" href="#features">Features</a>
+          <a class="hover:text-sky-600" href="#gallery">Gallery</a>
+          <a class="hover:text-sky-600" href="#contact">Contact</a>
+          <button class="ml-2 px-3 py-1 rounded-md bg-sky-600 text-white text-sm">Get Started</button>
+        </nav>
+
+        <!-- mobile menu button -->
+        <div class="md:hidden">
+          <button aria-label="Open menu" class="p-2 rounded-md bg-slate-100">
+            ☰
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ROW 1: Hero (container centered) -->
+    <section class="row-outline bg-gradient-to-r from-sky-600 to-indigo-600 text-white py-16">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">Responsive rows built with Tailwind's container</h1>
+            <p class="mt-4 text-lg sm:text-xl opacity-90">Use rows to stack content vertically; use the container class inside each row to keep content aligned and responsive.</p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#features" class="px-4 py-2 rounded-md bg-white text-sky-700 font-medium">See features</a>
+              <a href="#contact" class="px-4 py-2 rounded-md border border-white/30">Contact us</a>
+            </div>
+          </div>
+
+          <div class="order-first lg:order-last">
+            <!-- simple illustrative card -->
+            <div class="rounded-2xl bg-white/10 p-6 backdrop-blur-sm">
+              <div class="h-48 flex items-center justify-center border-2 border-white/20 rounded-xl">Illustration / image</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 2: Feature row (uses container) -->
+    <section id="features" class="py-12">
+      <div class="container">
+        <h2 class="text-2xl font-semibold">Features</h2>
+        <p class="mt-2 text-slate-600">A row contains a container; the container keeps your content aligned with the site grid while the row can be full-width for backgrounds.</p>
+
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Feature card -->
+          <article class="p-6 bg-white rounded-xl shadow-sm">
+            <h3 class="font-semibold">Responsive</h3>
+            <p class="mt-2 text-sm text-slate-600">Breakpoints and utilities make it effortless to adapt layouts to any screen size.</p>
+          </article>
+
+          <article class="p-6 bg-white rounded-xl shadow-sm">
+            <h3 class="font-semibold">Accessible</h3>
+            <p class="mt-2 text-sm text-slate-600">Semantic HTML plus small ARIA touches improves the experience for screen readers.</p>
+          </article>
+
+          <article class="p-6 bg-white rounded-xl shadow-sm">
+            <h3 class="font-semibold">Composable</h3>
+            <p class="mt-2 text-sm text-slate-600">Combine rows and containers to produce both fluid and constrained sections.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 3: Full-bleed CTA with container content centered -->
+    <section class="row-outline bg-sky-50 py-12">
+      <div class="container flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h3 class="text-lg font-semibold">Ready to try it?</h3>
+          <p class="text-sm text-slate-600">This call-to-action sits inside a centered container while the row provides the background.</p>
+        </div>
+        <div class="flex gap-3">
+          <button class="px-4 py-2 rounded-md bg-sky-600 text-white">Start free</button>
+          <button class="px-4 py-2 rounded-md border border-slate-200">Learn more</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 4: Two-column layout with image and text inside container -->
+    <section class="py-12">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=example" alt="Decorative" class="w-full rounded-lg shadow-md object-cover h-64">
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold">Two-column section</h3>
+            <p class="mt-3 text-slate-600">Text next to an image. Use <code>grid</code> or <code>flex</code> inside the container to create balanced columns.</p>
+            <ul class="mt-4 list-disc pl-5 text-slate-600">
+              <li>Column layouts that collapse on small screens</li>
+              <li>Content remains aligned with other sections via the container</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 5: Gallery (full width background, container constrains the grid) -->
+    <section id="gallery" class="row-outline py-12 bg-white">
+      <div class="container">
+        <h3 class="text-xl font-semibold">Gallery</h3>
+        <p class="mt-2 text-slate-600">A responsive grid inside the container.</p>
+
+        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <!-- small placeholders -->
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+          <div class="h-24 rounded-lg bg-slate-100"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 6: Contact form inside a container -->
+    <section id="contact" class="py-12 bg-slate-50">
+      <div class="container max-w-3xl">
+        <h3 class="text-xl font-semibold">Get in touch</h3>
+        <p class="mt-2 text-slate-600">A compact contact form that's responsive.</p>
+
+        <form class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input class="col-span-1 sm:col-span-1 p-3 rounded-md border" placeholder="First name" />
+          <input class="col-span-1 sm:col-span-1 p-3 rounded-md border" placeholder="Last name" />
+          <input class="col-span-1 sm:col-span-2 p-3 rounded-md border" placeholder="Email" />
+          <textarea class="col-span-1 sm:col-span-2 p-3 rounded-md border" rows="4" placeholder="Message"></textarea>
+
+          <div class="col-span-1 sm:col-span-2 text-right">
+            <button class="px-4 py-2 rounded-md bg-sky-600 text-white">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER (full-width) -->
+    <footer class="w-full bg-white border-t mt-12">
+      <div class="container py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-slate-600">© <span id="year"></span> MySite. All rights reserved.</p>
+        <div class="flex gap-4 text-sm">
+          <a class="hover:text-sky-600" href="#">Privacy</a>
+          <a class="hover:text-sky-600" href="#">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // small script: current year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
